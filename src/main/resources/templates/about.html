@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System - About</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #34495e;
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-header p {
+            color: #34495e;
+            font-size: 1.2rem;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .section {
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .team-section {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .team-section h2 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .team-member h3 {
+            color: #2c3e50;
+            margin: 1rem 0;
+        }
+
+        .team-member p {
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="#vote">Vote Now</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="about-container">
+        <div class="about-header">
+            <h1>About Our Online Voting System</h1>
+            <p>Empowering democracy through secure and accessible digital voting</p>
+        </div>
+
+        <div class="mission-vision">
+            <div class="section">
+                <h2>Our Mission</h2>
+                <p>To provide a secure, transparent, and accessible voting platform that enables citizens to exercise their democratic rights from anywhere.</p>
+            </div>
+            <div class="section">
+                <h2>Our Vision</h2>
+                <p>To revolutionize the voting process by making it more convenient, secure, and accessible while maintaining the highest standards of electoral integrity.</p>
+            </div>
+        </div>
+
+        <div class="team-section">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h3>John Doe</h3>
+                    <p>System Architect</p>
+                </div>
+                <div class="team-member">
+                    <h3>Jane Smith</h3>
+                    <p>Security Expert</p>
+                </div>
+                <div class="team-member">
+                    <h3>Mike Johnson</h3>
+                    <p>UI/UX Designer</p>
+                </div>
+                <div class="team-member">
+                    <h3>Sarah Wilson</h3>
+                    <p>Project Manager</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
