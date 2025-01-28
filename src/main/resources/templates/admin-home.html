@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Online Voting System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #34495e;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .welcome-panel {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .welcome-panel h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .admin-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .admin-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .admin-card p {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .admin-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .danger-button {
+            background-color: #e74c3c;
+        }
+
+        .success-button {
+            background-color: #2ecc71;
+        }
+
+        .warning-button {
+            background-color: #f1c40f;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/admin/dashboard">Dashboard</a></li>
+            <li><a href="/admin/manage-voters">Manage Voters</a></li>
+            <li><a href="/admin/manage-candidates">Manage Candidates</a></li>
+            <li><a href="/admin/elections">Elections</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="dashboard">
+        <div class="welcome-panel">
+            <div class="message">
+                <h3 th:if="${success}" style="color: green;" th:text="${success}"></h3>
+                <h3 th:if="${error}" style="color: red;" th:text="${error}"></h3>
+            </div>
+            <h1>Admin Dashboard</h1>
+            <p>Manage and monitor the entire voting system</p>
+        </div>
+
+        <div class="admin-grid">
+            <div class="admin-card">
+                <h3>Voter Management</h3>
+                <p>View and manage registered voters</p>
+                <a href="/admin/manage-voters" class="admin-button">Manage Voters</a>
+            </div>
+
+            <div class="admin-card">
+                <h3>Candidate Management</h3>
+                <p>Add or remove election candidates</p>
+                <a href="/admin/manage-candidates" class="admin-button success-button">Manage Candidates</a>
+            </div>
+
+            <div class="admin-card">
+                <h3>Election Control</h3>
+                <p>Start or end voting sessions</p>
+                <a href="/admin/elections" class="admin-button warning-button">Control Elections</a>
+            </div>
+
+            <div class="admin-card">
+                <h3>Results & Analytics</h3>
+                <p>View voting statistics and results</p>
+                <a href="/admin/results" class="admin-button">View Results</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const message = document.querySelector('.message');
+            if (message) {
+                setTimeout(function() {
+                    message.style.display = 'none';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

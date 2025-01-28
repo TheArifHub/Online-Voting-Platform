@@ -2,9 +2,6 @@ package com.arif.online_voting_system.service;
 
 import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
-import java.util.Random;
-import java.time.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -117,31 +114,33 @@ public class VoterService {
 		return "redirect:/voter/otp/" + voter.getId();
 	}
 
-	public String login(String voterid, String password, HttpSession session,RedirectAttributes redirectAttributes) {
-	    Voter voter = repository.findByVoterid(voterid);
+	public String login(String voterid, String password, HttpSession session, RedirectAttributes redirectAttributes) {
+		Voter voter = repository.findByVoterid(voterid);
 
-	    if (voter == null) {
-	    	redirectAttributes.addFlashAttribute("error", "Invalid credentials!");
-	        return "redirect:/login";
-	    }
+		if (voter == null) {
+			redirectAttributes.addFlashAttribute("error", "Invalid credentials!");
+			return "redirect:/login";
+		}
 
-	    if (!voter.isVerified()) {
-	        redirectAttributes.addFlashAttribute("error", "Your account is not verified. Please verify your account before logging in.");
-	        return "redirect:/login";
-	    }
+		if (!voter.isVerified()) {
+			redirectAttributes.addFlashAttribute("error",
+					"Your account is not verified. Please verify your account before logging in.");
+			return "redirect:/login";
+		}
 
-	    try {
-	        if (AES.decrypt(voter.getPassword()).equals(password)) {
-	            session.setAttribute("success", "Login Successful as a voter");
-	            session.setAttribute("voter", voter); 
-	            return "voter-home.html";
-	        }
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("error", "An error occurred during password decryption. Please try again.");
-	        return "redirect:/login";
-	    }
+		try {
+			if (AES.decrypt(voter.getPassword()).equals(password)) {
+				session.setAttribute("success", "Login Successful as a voter");
+				session.setAttribute("voter", voter);
+				return "voter-home.html";
+			}
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error",
+					"An error occurred during password decryption. Please try again.");
+			return "redirect:/login";
+		}
 
-	    redirectAttributes.addFlashAttribute("error", "Invalid credentials!");
-	    return "redirect:/login";
+		redirectAttributes.addFlashAttribute("error", "Invalid credentials!");
+		return "redirect:/login";
 	}
 }

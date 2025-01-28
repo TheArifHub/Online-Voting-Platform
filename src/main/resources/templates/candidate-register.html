@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Voting System - Register</title>
+    <title>Online Voting System - Candidate Registration</title>
     <style>
         * {
             margin: 0;
@@ -71,7 +70,7 @@
             font-weight: 500;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid #bdc3c7;
@@ -79,7 +78,7 @@
             font-size: 1rem;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #3498db;
             box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
@@ -101,36 +100,22 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-
-        .login-link {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .login-link a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
             <li><a href="#vote">Vote Now</a></li>
             <li><a href="#results">Results</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/contact">Contact</a></li>
         </ul>
     </nav>
 
     <div class="register-container">
-        <h1>Register to Vote</h1>
-        <form action="/voter/register" method="post" th:object="${voter}">
+        <h1>Candidate Registration</h1>
+        <form action="/candidate/candidate-register" method="post" th:object="${candidate}">
             <div class="form-group">
                 <label for="fullname">Full Name</label>
                 <input type="text" id="fullname" th:field="*{fullname}" required>
@@ -142,9 +127,34 @@
                 <span th:errors="*{email}"></span>
             </div>
             <div class="form-group">
-                <label for="voter-id">Voter ID</label>
-                <input type="text" id="voter-id" th:field="*{voterid}" required>
-                <span  th:errors="*{voterid}"></span>
+                <label for="party">Political Party</label>
+                <select id="party" name="party" th:field="*{party}" required>
+                    <option value="" disabled selected>Select a Party</option>
+                    <option value="Future Progress Party">Future Progress Party</option>
+                    <option value="People's Unity Party">People's Unity Party</option>
+                    <option value="Green Alliance">Green Alliance</option>
+                    <option value="National Reform Party">National Reform Party</option>
+                </select>
+                <span th:errors="*{party}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="constituency">Constituency</label>
+                <select id="constituency" name="constituency" th:field="*{constituency}" required>
+                    <option value="" disabled selected>Select a Constituency</option>
+                    <option value="Greenfield">Greenfield</option>
+                    <option value="Riverside">Riverside</option>
+                    <option value="Sunnyvale">Sunnyvale</option>
+                    <option value="Hilltop">Hilltop</option>
+                    <option value="Lakeside">Lakeside</option>
+                </select>
+                <span th:errors="*{constituency}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="manifesto">Manifesto</label>
+                <input type="text" id="manifesto" th:field="*{manifesto}" required>
+                <span th:errors="*{manifesto}"></span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -153,15 +163,11 @@
             </div>
             <div class="form-group">
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" th:field="*{confirmpassword}" required>
-                <span th:errors="*{confirmpassword}"></span>
+                <input type="password" id="confirm-password" th:field="*{confirmPassword}" required>
+                <span th:errors="*{confirmPassword}"></span>
             </div>
-            <button type="submit" class="submit-btn">Register</button>
+            <button type="submit" class="submit-btn">Register as Candidate</button>
         </form>
-        <div class="login-link">
-            <p>Already have an account? <a href="/login">Login here</a></p>
-            <p>Register if you are candidate? <a href="/candidate/candidate-register">Register here</a></p>
-        </div>
     </div>
 </body>
 </html>

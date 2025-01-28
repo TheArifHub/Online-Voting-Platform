@@ -1,12 +1,20 @@
 package com.arif.online_voting_system.dto;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
 @Data
-public class Voter {
+public class Candidate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -19,9 +27,14 @@ public class Voter {
 	@NotEmpty(message = "* It is a required field")
 	private String email;
 
-	@Pattern(regexp = "^[A-Za-z0-9]{6,12}$", message = "Voter ID must be alphanumeric and 6-12 characters long")
-	@NotEmpty(message = "* It is a required field")
-	private String voterid;
+	@NotEmpty(message = "Political Party is required")
+	private String party;
+
+	@NotEmpty(message = "Constituency is required")
+	private String constituency;
+
+	@Size(min = 10, max = 500, message = "Manifesto should be between 10 and 500 characters")
+	private String manifesto;
 
 	@Size(min = 8, message = "Password must be at least 8 characters")
 	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$", message = "Password must include one uppercase, one lowercase, one number, and one special character")
@@ -29,12 +42,11 @@ public class Voter {
 	private String password;
 
 	@Transient
-	private String confirmpassword;
+	private String confirmPassword;
 
 	@Column(nullable = false)
 	private int otp;
 
 	@Column(nullable = false)
 	private boolean verified;
-
 }

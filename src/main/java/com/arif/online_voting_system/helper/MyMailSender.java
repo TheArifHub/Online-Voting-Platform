@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 
+import com.arif.online_voting_system.dto.Candidate;
 import com.arif.online_voting_system.dto.Voter;
 import org.thymeleaf.context.Context;
 import jakarta.mail.MessagingException;
@@ -26,7 +27,7 @@ public class MyMailSender {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		
-		helper.setFrom("yourmail@gmail.com", "Online-Voting-System");
+		helper.setFrom("arifulla18038@gmail.com", "Online-Voting-System");
 		helper.setTo(voter.getEmail());
 		helper.setSubject("OTP For Creating Account With Us");
 		
@@ -35,6 +36,22 @@ public class MyMailSender {
 		
 		helper.setText(templateEngine.process("otp-template.html", context),true);
 		mailSender.send(message);
+	}
+
+	public void sendOtp(@Valid Candidate candidate) throws UnsupportedEncodingException, MessagingException {
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		
+		helper.setFrom("arifulla18038@gmail.com", "Online-Voting-System");
+		helper.setTo(candidate.getEmail());
+		helper.setSubject("OTP For Creating Account With Us");
+		
+		Context context = new Context();
+		context.setVariable("x", candidate);
+		
+		helper.setText(templateEngine.process("otp-template.html", context),true);
+		mailSender.send(message);
+		
 	}
 	
 }

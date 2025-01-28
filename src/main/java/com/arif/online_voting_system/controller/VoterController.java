@@ -54,4 +54,10 @@ public class VoterController {
 			throws UnsupportedEncodingException, MessagingException {
 		return service.resendotp(id, session,redirectAttributes);
 	}
+	
+	@PostMapping("/login")
+	public String login(@RequestParam(value = "voterid") String voterid,@RequestParam(value = "password") String password,HttpSession session,RedirectAttributes redirectAttributes)
+	{
+		return service.login(voterid,password,session,redirectAttributes);
+	}
 }
