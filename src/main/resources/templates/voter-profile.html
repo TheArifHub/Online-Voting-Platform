@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Voting System - OTP Verification</title>
+    <title>Voter Profile - Online Voting System</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
-
     <style>
         * {
             margin: 0;
@@ -51,19 +50,18 @@
             transform: translateY(-2px);
         }
         
-        .otp-container {
-            max-width: 600px;
+        .profile-container {
+            max-width: 900px;
             margin: 3rem auto;
             padding: 3rem 2rem;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            text-align: center;
             position: relative;
             overflow: hidden;
         }
         
-        .otp-container::before {
+        .profile-container::before {
             content: '';
             position: absolute;
             top: 0;
@@ -73,72 +71,89 @@
             background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
         }
         
-        .otp-container h1 {
+        .profile-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(26, 35, 126, 0.1);
+        }
+        
+        .profile-header h1 {
             font-size: 2.5rem;
             color: #1a237e;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
         
-        .welcome-message {
-            color: #455a64;
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
         
-        .otp-display {
+        .detail-group {
             background: #f8f9fa;
             padding: 2rem;
             border-radius: 15px;
-            margin: 2rem 0;
-            font-size: 3rem;
-            font-weight: 800;
-            color: #1a237e;
-            letter-spacing: 8px;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
         }
         
-        .instructions {
+        .detail-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        
+        .detail-group h3 {
+            color: #1a237e;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .detail-group p {
             color: #455a64;
             font-size: 1.1rem;
             line-height: 1.6;
-            margin: 2rem 0;
         }
         
-        .verify-btn {
-            padding: 1.2rem 3rem;
-            background: #1a237e;
-            color: white;
-            border: none;
+        .voting-status {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 1rem 2.5rem;
             border-radius: 50px;
-            font-size: 1.1rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+            margin-top: 1rem;
         }
         
-        .verify-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        .voted {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .not-voted {
+            background: #f8d7da;
+            color: #721c24;
         }
         
         @media (max-width: 768px) {
-            .otp-container {
+            .profile-container {
                 margin: 2rem;
             }
             
-            .otp-container h1 {
+            .profile-header h1 {
                 font-size: 2rem;
-            }
-            
-            .otp-display {
-                font-size: 2.5rem;
-                letter-spacing: 6px;
             }
         }
         </style>
@@ -147,25 +162,44 @@
 <body>
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#vote">Vote Now</a></li>
-            <li><a href="#results">Results</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/voter/dashboard">Dashboard</a></li>
+            <li><a href="/voter/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
 
-    <div class="otp-container">
-        <h1>OTP Verification</h1>
-        <div class="welcome-message">
-            Welcome, <span th:text="${x.fullname}">User</span>!
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Voter Profile</h1>
+            <p>Your voting information and details</p>
         </div>
-        <p>Your One-Time Password is:</p>
-        <div class="otp-display" th:text="${x.otp}">000000</div>
-        <p class="instructions">
-            Please use this OTP to verify your account. This code will expire in 10 minutes.
-        </p>
-        <button class="verify-btn">Verify OTP</button>
+
+        <div class="profile-details">
+            <div class="detail-group">
+                <h3>Full Name</h3>
+                <p th:text="${session.voter.fullname}">Voter Name</p>
+            </div>
+
+            <div class="detail-group">
+                <h3>Email Address</h3>
+                <p th:text="${session.voter.email}">voter@email.com</p>
+            </div>
+
+            <div class="detail-group">
+                <h3>Voter ID</h3>
+                <p th:text="${session.voter.voterid}">VOTER123</p>
+            </div>
+
+            <div class="voting-status">
+                <h3>Voting Status</h3>
+                <div th:if="${session.voter.hasVoted}" class="status-badge voted">
+                    Voted
+                </div>
+                <div th:unless="${session.voter.hasVoted}" class="status-badge not-voted">
+                    Not Voted
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -1,168 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Voting System - Home</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Voting System - Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-        }
+		<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Raleway', sans-serif;
+		}
 
-        nav {
-            background-color: #2c3e50;
-            padding: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+		body {
+			background: linear-gradient(45deg, #f1f7ff, #ffffff);
+			min-height: 100vh;
+			color: #2d3436;
+		}
 
-        nav ul {
-            display: flex;
-            justify-content: flex-end;
-            list-style: none;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+		nav {
+			background: #1a237e;
+			padding: 1.2rem;
+			box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+		}
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            margin: 0 0.5rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
+		nav ul {
+			display: flex;
+			justify-content: flex-end;
+			list-style: none;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
 
-        nav ul li a:hover {
-            background-color: #34495e;
-        }
+		nav ul li a {
+			color: white;
+			text-decoration: none;
+			padding: 0.8rem 1.2rem;
+			margin: 0 0.5rem;
+			border-radius: 6px;
+			transition: all 0.3s ease;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
 
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: rgba(255, 255, 255, 0.9);
-            margin: 2rem auto;
-            max-width: 1000px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+		nav ul li a:hover {
+			background: #283593;
+			transform: translateY(-2px);
+		}
 
-        .hero h1 {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
+		.hero {
+			text-align: center;
+			padding: 5rem 2rem;
+			background: rgba(255, 255, 255, 0.95);
+			margin: 3rem auto;
+			max-width: 1100px;
+			border-radius: 20px;
+			box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+			position: relative;
+			overflow: hidden;
+		}
 
-        .hero p {
-            color: #34495e;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
+		.hero::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 5px;
+			background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
+		}
 
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
+		.hero h1 {
+			font-size: 3.2rem;
+			color: #1a237e;
+			margin-bottom: 1.5rem;
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+		}
 
-        .cta-button {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+		.hero p {
+			color: #455a64;
+			font-size: 1.3rem;
+			margin-bottom: 3rem;
+			line-height: 1.8;
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+		}
 
-        .primary-btn {
-            background-color: #3498db;
-            color: white;
-        }
+		.cta-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+		}
 
-        .secondary-btn {
-            background-color: #2ecc71;
-            color: white;
-        }
+		.cta-button {
+			padding: 1.2rem 3rem;
+			border: none;
+			border-radius: 50px;
+			font-size: 1.1rem;
+			cursor: pointer;
+			transition: all 0.4s ease;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
+		.primary-btn {
+			background: #1a237e;
+			color: white;
+			box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+		}
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+		.secondary-btn {
+			background: #138808;
+			color: white;
+			box-shadow: 0 5px 15px rgba(19, 136, 8, 0.3);
+		}
 
-        .feature-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+		.cta-button:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+		}
 
-        .feature-card h3 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
+		.features {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+			gap: 2.5rem;
+			padding: 2rem;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
 
-        .feature-card p {
-            color: #7f8c8d;
-        }
-    </style>
+		.feature-card {
+			background: white;
+			padding: 3rem 2rem;
+			border-radius: 15px;
+			text-align: center;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+			transition: all 0.4s ease;
+			border: 1px solid rgba(26, 35, 126, 0.1);
+		}
+
+		.feature-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+		}
+
+		.feature-card h3 {
+			color: #1a237e;
+			font-size: 1.5rem;
+			margin-bottom: 1.2rem;
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+
+		.feature-card p {
+			color: #455a64;
+			line-height: 1.7;
+			font-size: 1.1rem;
+		}
+
+		.message {
+			background: white;
+			padding: 1.2rem;
+			border-radius: 10px;
+			margin-bottom: 1.5rem;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+		}
+
+		@media (max-width: 768px) {
+			.hero h1 {
+				font-size: 2.5rem;
+			}
+	
+			.cta-buttons {
+				flex-direction: column;
+				align-items: center;
+			}
+	
+			.cta-button {
+				width: 100%;
+				max-width: 300px;
+			}
+		}
+		</style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="#vote">Vote Now</a></li>
-            <li><a href="#results">Results</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
-    </nav>
+	<nav>
+		<ul>
+			<li><a href="/home">Home</a></li>
+			<li><a href="/about">About</a></li>
+			<li><a href="/vote-now">Vote Now</a></li>
+			<li><a href="/results">Results</a></li>
+			<li><a href="/contact">Contact</a></li>
+		</ul>
+	</nav>
 
-    <div class="hero">
-        <div class="message">
-            <h3 th:if="${success}" style="color: green;" th:text="${success}"></h3>
-            <h3 th:if="${error}" style="color: red;" th:text="${error}"></h3>
-        </div>
-        <h1>Welcome to Online Voting System</h1>
-        <p>Exercise your right to vote securely and conveniently from anywhere</p>
-        <div class="cta-buttons">
-            <a href="/login"><button class="cta-button primary-btn">Login to Vote</button></a>
-            <a href="/voter/register"><button class="cta-button secondary-btn">Register Now</button></a>
-        </div>
-    </div>
+	<div class="hero">
+		<div class="message"
+			th:if="${session.success != null || session.error != null}">
+			<h3 style="color: green;" th:text="${session.success}"></h3>
+			<h3 style="color: red" th:text="${session.error}"></h3>
+			<th:block th:text="${@messageRemover.remove()}"></th:block>
+		</div>
+		<h1>Welcome to Online Voting System</h1>
+		<p>Exercise your right to vote securely and conveniently from
+			anywhere</p>
+		<div class="cta-buttons">
+			<a href="/login"><button class="cta-button primary-btn">Login
+					to Vote</button></a> <a href="/register"><button
+					class="cta-button secondary-btn">Register Now</button></a>
+		</div>
+	</div>
 
-    <div class="features">
-        <div class="feature-card">
-            <h3>Secure Voting</h3>
-            <p>State-of-the-art encryption and security measures to protect your vote</p>
-        </div>
-        <div class="feature-card">
-            <h3>Easy Access</h3>
-            <p>Vote from anywhere using your computer or mobile device</p>
-        </div>
-        <div class="feature-card">
-            <h3>Real-time Results</h3>
-            <p>View election results as they come in with live updates</p>
-        </div>
-    </div>
-    
-    <script>
+	<div class="features">
+		<div class="feature-card">
+			<h3>Secure Voting</h3>
+			<p>State-of-the-art encryption and security measures to protect
+				your vote</p>
+		</div>
+		<div class="feature-card">
+			<h3>Easy Access</h3>
+			<p>Vote from anywhere using your computer or mobile device</p>
+		</div>
+		<div class="feature-card">
+			<h3>Real-time Results</h3>
+			<p>View election results as they come in with live updates</p>
+		</div>
+	</div>
+
+	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const message = document.querySelector('.message');
 			if (message) {

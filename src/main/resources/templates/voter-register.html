@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(45deg, #f1f7ff, #ffffff);
+        min-height: 100vh;
+        color: #2d3436;
+    }
+
+    nav {
+        background: #1a237e;
+        padding: 1.2rem;
+        box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: flex-end;
+        list-style: none;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 0.8rem 1.2rem;
+        margin: 0 0.5rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    nav ul li a:hover {
+        background: #283593;
+        transform: translateY(-2px);
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #1a237e;
+        margin-bottom: 2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        padding-top: 2rem;
+    }
+
+    form {
+        background: rgba(255, 255, 255, 0.95);
+        margin: 2rem auto;
+        max-width: 600px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        position: relative;
+    }
+
+    form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
+        border-radius: 20px 20px 0 0;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    label {
+        display: block;
+        color: #455a64;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    input:focus {
+        border-color: #1a237e;
+        outline: none;
+        box-shadow: 0 0 10px rgba(26, 35, 126, 0.1);
+    }
+
+    span[th\:errors] {
+        color: #ff3366;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        display: block;
+    }
+
+    .submit-btn {
+        background: #1a237e;
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+
+    .login-link a {
+        color: #1a237e;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        form {
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<body>
+    <h1>Register to Vote</h1>
+    <form th:action="@{/voter/voter-register}" th:object="${voter}" method="post" class="needs-validation">
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" th:field="*{fullname}" required>
+            <span th:errors="*{fullname}"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" th:field="*{email}" required>
+            <span th:errors="*{email}"></span>
+        </div>
+        <div class="form-group">
+            <label for="voter-id">Voter ID</label>
+            <input type="text" id="voter-id" th:field="*{voterid}" required>
+            <span th:errors="*{voterid}"></span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" required>
+            <span th:errors="*{password}"></span>
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" th:field="*{confirmpassword}" required>
+            <span th:errors="*{confirmpassword}"></span>
+        </div>
+        <button type="submit" class="submit-btn">Register</button>
+    </form>
+    <div class="login-link">
+        <p>Already have an account? <a href="/login">Login here</a></p>
+    </div>
+    </div>
+</body>
+
+</html>

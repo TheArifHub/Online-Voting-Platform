@@ -27,7 +27,7 @@ public class MyMailSender {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		
-		helper.setFrom("arifulla18038@gmail.com", "Online-Voting-System");
+		helper.setFrom("your_mail@gmail.com", "Online-Voting-System");
 		helper.setTo(voter.getEmail());
 		helper.setSubject("OTP For Creating Account With Us");
 		
@@ -42,7 +42,7 @@ public class MyMailSender {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		
-		helper.setFrom("arifulla18038@gmail.com", "Online-Voting-System");
+		helper.setFrom("your_mail@gmail.com", "Online-Voting-System");
 		helper.setTo(candidate.getEmail());
 		helper.setSubject("OTP For Creating Account With Us");
 		
@@ -51,7 +51,6 @@ public class MyMailSender {
 		
 		helper.setText(templateEngine.process("otp-template.html", context),true);
 		mailSender.send(message);
-		
 	}
 	
 }

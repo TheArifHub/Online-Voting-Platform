@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Voting System - Register</title>
+    <title>Update Profile - Online Voting System</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -51,7 +51,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 3rem auto;
             padding: 3rem 2rem;
             background: rgba(255, 255, 255, 0.95);
@@ -71,41 +71,33 @@
             background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
         }
         
-        .container h1 {
-            font-size: 2.5rem;
-            color: #1a237e;
-            margin-bottom: 2rem;
+        .profile-header {
             text-align: center;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
             margin-bottom: 3rem;
         }
         
-        .btn-group button {
-            padding: 1.2rem 2.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: #1a237e;
-            color: white;
-            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            overflow: hidden;
+            border: 4px solid #1a237e;
+            box-shadow: 0 8px 20px rgba(26, 35, 126, 0.2);
         }
         
-        .btn-group button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-header h1 {
+            font-size: 2.5rem;
+            color: #1a237e;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         
         .form-group {
@@ -135,6 +127,11 @@
             outline: none;
             border-color: #1a237e;
             box-shadow: 0 0 10px rgba(26, 35, 126, 0.1);
+        }
+        
+        .form-group input[readonly] {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
         }
         
         .submit-btn {
@@ -170,42 +167,76 @@
                 margin: 2rem;
             }
             
-            .btn-group {
-                flex-direction: column;
+            .profile-header h1 {
+                font-size: 2rem;
             }
             
-            .btn-group button {
-                width: 100%;
+            .profile-image {
+                width: 150px;
+                height: 150px;
             }
         }
         </style>
         
 </head>
 <body>
-
     <nav>
         <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="#vote">Vote Now</a></li>
-            <li><a href="#results">Results</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/candidate/dashboard">Dashboard</a></li>
+            <li><a href="/candidate/profile">My Profile</a></li>
+            <li><a href="/candidate/election-status">Election Status</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
 
     <div class="container">
-        <h1>Register</h1>
-        <div class="btn-group">
-            <a href="/voter/voter-register"><button >Voter Registration</button></a>
-            <a href="/candidate/candidate-register"><button>Candidate Registration</button></a>
+        <div class="profile-header">
+            <div class="profile-image">
+                <img th:if="${session.candidate.profilePicUrl}" 
+                     th:src="${session.candidate.profilePicUrl}" 
+                     alt="Profile Picture">
+                <img th:unless="${session.candidate.profilePicUrl}" 
+                     src="/images/default-profile.png" 
+                     alt="Default Profile">
+            </div>
+            <h1>Update Profile</h1>
         </div>
+        <form th:action="@{/candidate/update-profile/{id}(id=${candidate.id})}" method="post" enctype="multipart/form-data" th:object="${candidate}">
+            <input type="hidden" name="id" th:value="${candidate.id}">
+            <div class="form-group">
+                <label for="profilePic">Update Profile Picture</label>
+                <input type="file" id="profilePic" name="profilePic" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" th:field="*{fullname}" required>
+                <span class="error-message" th:errors="*{fullname}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" th:field="*{email}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="party">Political Party</label>
+                <input type="text" id="party" th:field="*{party}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="constituency">Constituency</label>
+                <input type="text" id="constituency" th:field="*{constituency}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="manifesto">Manifesto</label>
+                <input type="text" id="manifesto" th:field="*{manifesto}">
+                <span class="error-message" th:errors="*{manifesto}"></span>
+            </div>
+
+            <button type="submit" class="submit-btn">Update Profile</button>
+        </form>
     </div>
-
-        
-
-    
-	
-	
-
 </body>
 </html>

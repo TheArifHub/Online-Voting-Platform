@@ -1,5 +1,7 @@
 package com.arif.online_voting_system.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,10 +45,25 @@ public class Candidate {
 
 	@Transient
 	private String confirmPassword;
+	
+	@Transient
+	private MultipartFile profilePic;
+
+	private String profilePicUrl;
 
 	@Column(nullable = false)
 	private int otp;
 
 	@Column(nullable = false)
 	private boolean verified;
+	
+	@Column(name = "status")
+	private String status; 
+	
+	@Column(name = "vote_count", nullable = false)
+	private int voteCount = 0;
+
+
+
+
 }

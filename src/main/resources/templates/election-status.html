@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Status - Online Voting System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #f1f7ff, #ffffff);
+            min-height: 100vh;
+            color: #2d3436;
+        }
+        
+        nav {
+            background: #1a237e;
+            padding: 1.2rem;
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.2rem;
+            margin: 0 0.5rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        nav ul li a:hover {
+            background: #283593;
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        
+        .status-header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+        
+        .status-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
+        }
+        
+        .status-header h1 {
+            font-size: 2.5rem;
+            color: #1a237e;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .status-header p {
+            color: #455a64;
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+        }
+        
+        .candidates-list {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        
+        .candidate-row {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(26, 35, 126, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .candidate-row:hover {
+            transform: translateX(10px);
+            background: rgba(26, 35, 126, 0.02);
+        }
+        
+        .candidate-row:last-child {
+            border-bottom: none;
+        }
+        
+        .position {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1a237e;
+            width: 60px;
+        }
+        
+        .candidate-info {
+            flex-grow: 1;
+            padding: 0 1.5rem;
+        }
+        
+        .candidate-info h3 {
+            color: #1a237e;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .candidate-info p {
+            color: #455a64;
+            font-size: 1.1rem;
+        }
+        
+        .progress-bar {
+            width: 200px;
+            height: 20px;
+            background: #f1f7ff;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 1.5rem;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(45deg, #1a237e, #3498db);
+            transition: width 0.3s ease;
+        }
+        
+        .vote-count {
+            font-size: 1.2rem;
+            color: #1a237e;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: right;
+        }
+        
+        @media (max-width: 768px) {
+            .candidate-row {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .progress-bar {
+                width: 100%;
+                margin: 1rem 0;
+            }
+            
+            .vote-count {
+                text-align: center;
+            }
+        }
+        </style>
+        
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/candidate/dashboard">Dashboard</a></li>
+            <li><a href="/candidate/profile">My Profile</a></li>
+            <li><a href="/candidate/election-status">Election Status</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="status-header">
+            <h1>Election Status</h1>
+            <p>Total Votes Cast: <span th:text="${totalVotes}">0</span></p>
+            <p>Your Current Position: <span th:text="${position}">--</span></p>
+        </div>
+
+        <div class="candidates-list">
+            <div class="candidate-row" th:each="candidate, iterStat : ${candidates}">
+                <div class="position" th:text="${iterStat.count}">1</div>
+                <div class="candidate-info">
+                    <h3 th:text="${candidate.fullname}">Candidate Name</h3>
+                    <p th:text="${candidate.party}">Party Name</p>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" th:style="'width: ' + ${totalVotes > 0 ? (candidate.voteCount * 100 / totalVotes) : 0} + '%'"></div>
+                </div>
+                <div class="vote-count" th:text="${candidate.voteCount} + ' votes'">0 votes</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Voters - Online Voting System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #f1f7ff, #ffffff);
+            min-height: 100vh;
+            color: #2d3436;
+        }
+        
+        nav {
+            background: #1a237e;
+            padding: 1.2rem;
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.2rem;
+            margin: 0 0.5rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        nav ul li a:hover {
+            background: #283593;
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #1a237e;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .voters-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #1a237e;
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        td {
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(26, 35, 126, 0.1);
+        }
+        
+        tr:hover {
+            background: rgba(26, 35, 126, 0.02);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .verified {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .not-verified {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .voted {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .not-voted {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .voters-table {
+                overflow-x: auto;
+            }
+            
+            td, th {
+                padding: 1rem;
+            }
+            
+            .status-badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        </style>
+        
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/admin/dashboard">Dashboard</a></li>
+            <li><a href="/admin/manage-candidates">Manage Candidates</a></li>
+            <li><a href="/admin/manage-voters">Manage Voters</a></li>
+            <li><a href="/admin/elections">Elections</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Manage Voters</h1>
+            <p>View and manage registered voters</p>
+        </div>
+
+        <div class="voters-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Voter ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Verification Status</th>
+                        <th>Voting Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="voter : ${voters}">
+                        <td th:text="${voter.voterid}">VOT123</td>
+                        <td th:text="${voter.fullname}">John Doe</td>
+                        <td th:text="${voter.email}">john@example.com</td>
+                        <td>
+                            <span th:if="${voter.verified}" class="status-badge verified">Verified</span>
+                            <span th:unless="${voter.verified}" class="status-badge not-verified">Not Verified</span>
+                        </td>
+                        <td>
+                            <span th:if="${voter.hasVoted}" class="status-badge voted">Voted</span>
+                            <span th:unless="${voter.hasVoted}" class="status-badge not-voted">Not Voted</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

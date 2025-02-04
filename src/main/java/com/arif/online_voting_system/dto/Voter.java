@@ -37,4 +37,7 @@ public class Voter {
 	@Column(nullable = false)
 	private boolean verified;
 
+	@Column(name = "has_voted", nullable = false)
+	private boolean hasVoted = false;
+
 }
