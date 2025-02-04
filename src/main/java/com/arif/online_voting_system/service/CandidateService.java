@@ -50,8 +50,9 @@ public class CandidateService {
 			result.rejectValue("email", "error.email", "* Email already exists");
 		}
 
-		if (candidate.getParty() != null && candidateRepository.existsByParty(candidate.getParty())) {
-			result.rejectValue("party", "error.party", "* This party is already taken by another candidate");
+		if (candidateRepository.existsByParty(candidate.getParty())) {
+		    result.rejectValue("party", "error.party", "* This party is already registered with another candidate");
+		    return "candidate-register";
 		}
 
 		if (file == null || file.isEmpty()) {
